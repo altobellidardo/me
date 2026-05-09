@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dardoaltobelli.com/sitemap-index.xml

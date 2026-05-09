@@ -6,7 +6,7 @@ const projects = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    pubDate: z.coerce.date(),
+    pubDate: z.date(), // Using z.date() directly if coerce was causing hints
     image: image().optional(),
     tags: z.array(z.string()),
     featured: z.boolean().default(false),
