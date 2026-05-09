@@ -1,162 +1,285 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map(entry => ({
-    params: { slug: entry.id }, props: { entry },
-  }));
+  const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+  
+  return sortedProjects.map((entry, index) => {
+    const nextEntry = sortedProjects[index + 1] || sortedProjects[0]; // Loop back to start
+    return {
+      params: { slug: entry.id }, 
+      props: { entry, nextEntry },
+    }
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, nextEntry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
 <Layout title={`${entry.data.title} | Dardo Altobelli`} description={entry.data.description}>
-  <main class="container">
+  <main class="project-page">
     <header class="project-header reveal">
-      <a href="/" class="back-link">← Back to Portfolio</a>
-      <h1 class="project-title">{entry.data.title}</h1>
-      <div class="project-meta">
-        <span class="date">{entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
-        <div class="tags">
-          {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+      <div class="header-container">
+        <a href="/" class="back-link">
+          <span class="arrow">←</span> Index
+        </a>
+        
+        <h1 class="project-title" transition:name={`title-${entry.id}`}>
+          {entry.data.title}
+        </h1>
+        
+        <div class="project-meta">
+          <div class="meta-item">
+            <span class="label">Date /</span>
+            <span class="value">{entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Role /</span>
+            <span class="value">Lead Architect</span>
+          </div>
+          <div class="tags">
+            {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
         </div>
       </div>
+
+      {entry.data.image && (
+        <div class="featured-image-container reveal" style="transition-delay: 0.2s;">
+          <Image 
+            src={entry.data.image} 
+            alt={entry.data.title} 
+            width={1600} 
+            height={900} 
+            class="featured-image"
+          />
+        </div>
+      )}
     </header>
 
-    <div class="project-content reveal" style="animation-delay: 0.2s;">
-      <Content />
-    </div>
+    <div class="project-grid container">
+      <aside class="sidebar reveal" style="transition-delay: 0.3s;">
+        <div class="sticky-content">
+          <p class="summary">{entry.data.description}</p>
+        </div>
+      </aside>
 
-    <footer class="project-footer reveal" style="animation-delay: 0.4s;">
-      <p>Want to talk about this project?</p>
-      <a href="mailto:contact@dardoaltobelli.com" class="contact-btn">Get in touch</a>
-    </footer>
+      <article class="project-content reveal" style="transition-delay: 0.4s;">
+        <Content />
+        
+        <footer class="project-navigation">
+          <div class="nav-label">Next Project</div>
+          <a href={`/projects/${nextEntry.id}`} class="next-link">
+            <span class="next-title">{nextEntry.data.title}</span>
+            <span class="next-arrow">→</span>
+          </a>
+        </footer>
+      </article>
+    </div>
   </main>
 </Layout>
 
 <style>
-  .container {
-    max-width: 900px;
+  .project-page {
+    padding-bottom: 15vh;
+  }
+
+  .header-container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 10vh 5vw;
+    padding: 10vh 5vw 5vh 5vw;
   }
 
   .back-link {
-    display: inline-block;
-    margin-bottom: 2rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-weight: 800;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     letter-spacing: 0.1em;
     color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .back-link:hover .arrow {
+    transform: translateX(-5px);
+  }
+
+  .arrow {
+    transition: transform 0.3s ease;
   }
 
   .project-title {
-    font-size: clamp(3rem, 10vw, 6rem);
-    margin-bottom: 2rem;
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.85;
+    margin-bottom: 4rem;
+    letter-spacing: -0.04em;
   }
 
   .project-meta {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
     border-top: 1px solid var(--border);
-    padding-top: 2rem;
-    margin-bottom: 4rem;
+    padding-top: 3rem;
   }
 
-  .date {
-    font-weight: 700;
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .meta-item .label {
+    font-size: 0.7rem;
     text-transform: uppercase;
-    font-size: 0.9rem;
-    opacity: 0.6;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .meta-item .value {
+    font-weight: 600;
+    font-size: 1.1rem;
   }
 
   .tags {
     display: flex;
     gap: 0.5rem;
+    align-items: flex-start;
   }
 
   .tag {
-    background: var(--accent-soft);
-    color: var(--accent);
+    border: 1px solid var(--border);
     padding: 0.3rem 0.8rem;
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    border-radius: 4px;
+    border-radius: 2px;
+  }
+
+  .featured-image-container {
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+    margin-bottom: 8rem;
+    background: var(--accent-soft);
+  }
+
+  .featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1);
+    transition: filter 0.5s ease, transform 0.8s ease;
+  }
+
+  .featured-image-container:hover .featured-image {
+    filter: grayscale(0) contrast(1);
+    transform: scale(1.02);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5vw;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8rem;
+  }
+
+  .sidebar .summary {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .sticky-content {
+    position: sticky;
+    top: 5rem;
   }
 
   .project-content {
     font-size: 1.25rem;
     line-height: 1.6;
+    max-width: 800px;
   }
 
   .project-content :global(h2) {
-    font-size: 2.5rem;
-    margin: 3rem 0 1.5rem 0;
+    font-size: 3rem;
+    margin: 4rem 0 2rem 0;
     color: var(--accent);
   }
 
   .project-content :global(p) {
-    margin-bottom: 1.5rem;
-  }
-
-  .project-content :global(ul) {
     margin-bottom: 2rem;
-    list-style: none;
-    padding: 0;
+    opacity: 0.9;
   }
 
-  .project-content :global(li) {
-    padding-left: 1.5rem;
-    position: relative;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-content :global(li::before) {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-  }
-
-  .project-footer {
-    margin-top: 8rem;
+  .project-navigation {
+    margin-top: 10rem;
+    border-top: 2px solid var(--text);
     padding-top: 4rem;
-    border-top: 1px solid var(--border);
-    text-align: center;
   }
 
-  .project-footer p {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
+  .nav-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
   }
 
-  .contact-btn {
-    display: inline-block;
-    padding: 1rem 3rem;
-    background: var(--accent);
-    color: var(--bg);
+  .next-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+  }
+
+  .next-title {
+    font-size: clamp(2rem, 8vw, 6rem);
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+  }
+
+  .next-arrow {
+    font-size: clamp(2rem, 8vw, 6rem);
     transition: transform 0.3s ease;
   }
 
-  .contact-btn:hover {
-    transform: scale(1.05);
+  .next-link:hover .next-arrow {
+    transform: translateX(20px);
+  }
+
+  @media (max-width: 1024px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    .project-title {
+      font-size: 5rem;
+    }
   }
 
   @media (max-width: 768px) {
     .project-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
+      gap: 2rem;
+    }
+    .featured-image-container {
+      height: 50vh;
     }
   }
 </style>
