@@ -1,0 +1,162 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.title} | Dardo Altobelli`} description={entry.data.description}>
+  <main class="container">
+    <header class="project-header reveal">
+      <a href="/" class="back-link">← Back to Portfolio</a>
+      <h1 class="project-title">{entry.data.title}</h1>
+      <div class="project-meta">
+        <span class="date">{entry.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
+        <div class="tags">
+          {entry.data.tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+    </header>
+
+    <div class="project-content reveal" style="animation-delay: 0.2s;">
+      <Content />
+    </div>
+
+    <footer class="project-footer reveal" style="animation-delay: 0.4s;">
+      <p>Want to talk about this project?</p>
+      <a href="mailto:contact@dardoaltobelli.com" class="contact-btn">Get in touch</a>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10vh 5vw;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .project-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    margin-bottom: 2rem;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .date {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+
+  .project-content {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .project-content :global(h2) {
+    font-size: 2.5rem;
+    margin: 3rem 0 1.5rem 0;
+    color: var(--accent);
+  }
+
+  .project-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-content :global(ul) {
+    margin-bottom: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-content :global(li) {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-content :global(li::before) {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .project-footer {
+    margin-top: 8rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .project-footer p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .contact-btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: transform 0.3s ease;
+  }
+
+  .contact-btn:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .project-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+</style>
