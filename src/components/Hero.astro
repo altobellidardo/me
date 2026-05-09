@@ -2,8 +2,12 @@
 ---
 
 <section id="hero" class="reveal">
-  <div class="line">DARDO</div>
-  <div class="line outlined">ALTOBELLI</div>
+  <div class="main-title">
+    <div class="line">DARDO</div>
+    <div class="line vertical-accent">
+      <span class="text">ALTOBELLI</span>
+    </div>
+  </div>
   <div class="subline">
     <span class="tag">Software Architect</span>
     <span class="tag">Creative Coder</span>
@@ -19,19 +23,38 @@
     align-items: flex-start;
   }
 
+  .main-title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
   .line {
     font-size: clamp(4rem, 15vw, 12rem);
     font-weight: 800;
     letter-spacing: -0.05em;
+    line-height: 0.85;
   }
 
-  .outlined {
-    -webkit-text-stroke: 1px var(--text);
-    color: transparent;
+  .vertical-accent {
+    position: relative;
+    margin-top: 0.5rem;
+    padding-left: 2rem;
+    color: var(--accent);
+  }
+
+  .vertical-accent::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 0.5rem;
+    background: var(--text);
   }
 
   .subline {
-    margin-top: 2rem;
+    margin-top: 4rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -51,6 +74,12 @@
   @media (max-width: 768px) {
     #hero {
       padding: 5vh 0;
+    }
+    .vertical-accent {
+      padding-left: 1.5rem;
+    }
+    .vertical-accent::before {
+      width: 0.3rem;
     }
   }
 </style>

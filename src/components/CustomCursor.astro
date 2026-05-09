@@ -12,10 +12,20 @@
   let mouseY = 0;
   let followerX = 0;
   let followerY = 0;
+  let hasMoved = false;
 
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    
+    if (!hasMoved) {
+      hasMoved = true;
+      if (cursor) cursor.style.opacity = '1';
+      if (follower) follower.style.opacity = '1';
+      // Sync follower instantly on first move to avoid jump
+      followerX = mouseX;
+      followerY = mouseY;
+    }
     
     if (cursor) {
       cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
@@ -36,21 +46,10 @@
 
   animate();
 
-  // Hover effects
-  const links = document.querySelectorAll('a, button, .project-card');
-  links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-      follower?.classList.add('hover');
-    });
-    link.addEventListener('mouseleave', () => {
-      follower?.classList.remove('hover');
-    });
-  });
-
-  // Re-initialize on page transition (Astro ClientRouter)
-  document.addEventListener('astro:after-swap', () => {
-    const newLinks = document.querySelectorAll('a, button, .project-card');
-    newLinks.forEach(link => {
+  // Hover effects function to reuse
+  function setupHovers() {
+    const links = document.querySelectorAll('a, button, .project-card');
+    links.forEach(link => {
       link.addEventListener('mouseenter', () => {
         follower?.classList.add('hover');
       });
@@ -58,6 +57,13 @@
         follower?.classList.remove('hover');
       });
     });
+  }
+
+  setupHovers();
+
+  // Re-initialize on page transition (Astro ClientRouter)
+  document.addEventListener('astro:after-swap', () => {
+    setupHovers();
   });
 </script>
 
@@ -82,7 +88,8 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 10000;
-      transition: transform 0.05s linear;
+      transition: transform 0.05s linear, opacity 0.3s ease;
+      opacity: 0; /* Hidden initially */
     }
 
     #cursor-follower {
@@ -95,7 +102,8 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, background-color 0.3s ease;
+      transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+      opacity: 0; /* Hidden initially */
     }
 
     #cursor-follower.hover {
