@@ -1,46 +1,47 @@
-# Astro Starter Kit: Basics
+# Dardo Altobelli | Senior Software Architect & Creative Developer
 
-```sh
-bun create astro@latest -- --template basics
-```
+Este es mi portfolio personal, diseñado con una estética técnica/brutalista que refleja mi enfoque en la arquitectura de software limpia y el desarrollo creativo.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Stack Tecnológico
 
-## 🚀 Project Structure
+- **Framework:** [Astro 5.0](https://astro.build/) (Content Layer API)
+- **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
+- **Estilos:** Vanilla CSS con variables modernas y filtros SVG.
+- **Tipografía:** Syne & Bricolage Grotesque.
+- **Runtime:** [Bun](https://bun.sh/)
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🛠️ Características Destacadas
+
+- **Arquitectura de Datos:** Migración a Astro Content Layer para una gestión de proyectos desacoplada y escalable.
+- **Performance:** Optimizado para una carga casi instantánea, inlining de estilos y compresión HTML nativa.
+- **UX/UI:** 
+  - Sistema de animaciones basado en `Intersection Observer`.
+  - View Transitions avanzadas para una navegación fluida entre páginas.
+  - Estética técnica con efectos de ruido analógico y tipografía de alto impacto.
+  - Favicon minimalista personalizado ("DA").
+
+## 📁 Estructura del Proyecto
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── content/         # Datos de proyectos (Markdown)
+│   ├── components/      # Componentes de UI modulares
+│   ├── layouts/         # Layout global con lógica de scroll y transitions
+│   ├── pages/           # Rutas dinámicas y estáticas
+│   └── data/            # Configuración de esquemas y tipos
+├── public/              # Assets estáticos (Favicon)
+└── astro.config.mjs     # Configuración de optimización y sitio
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## ⌨️ Comandos
 
-## 🧞 Commands
+| Comando | Acción |
+| :--- | :--- |
+| `bun install` | Instalar dependencias |
+| `bun dev` | Iniciar servidor de desarrollo en `localhost:4321` |
+| `bun build` | Generar build de producción en `./dist/` |
+| `bun preview` | Previsualizar el build de producción |
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+Diseñado y desarrollado por **Dardo Altobelli**.
