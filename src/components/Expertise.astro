@@ -1,0 +1,136 @@
+---
+const skills = [
+  {
+    category: "Architecture",
+    items: ["Clean Architecture", "Hexagonal", "Microservices", "Event-Driven", "Design Patterns", "Domain Driven Design"]
+  },
+  {
+    category: "Frontend",
+    items: ["Astro", "React", "TypeScript", "Performance Optimization", "Accessibility (WCAG)", "Modern CSS", "Vite"]
+  },
+  {
+    category: "Backend & Cloud",
+    items: ["Node.js", "Go", "Python", "Docker", "CI/CD Pipelines", "SQL / NoSQL", "AWS/Cloud"]
+  },
+  {
+    category: "Leadership",
+    items: ["Technical Strategy", "Mentoring", "System Design", "Agile Methodologies", "Stakeholder Management"]
+  }
+];
+---
+
+<section id="expertise" class="reveal">
+  <div class="header">
+    <h2 class="section-title">03 /<br/>Expertise</h2>
+    <p>Technical foundations and strategic leadership built over 15+ years.</p>
+  </div>
+
+  <div class="expertise-grid">
+    {skills.map((group) => (
+      <div class="skill-group">
+        <h3 class="category-title">{group.category}</h3>
+        <ul class="skill-list">
+          {group.items.map((item) => (
+            <li class="skill-item">
+              <span class="dot"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  #expertise {
+    margin: 8rem 0;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 4rem;
+    color: var(--accent);
+  }
+
+  .header p {
+    max-width: 400px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.7;
+    text-align: right;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    border-top: 1px solid var(--border);
+    padding-top: 3rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .skill-item {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .skill-item:hover {
+    opacity: 1;
+    color: var(--accent);
+    transform: translateX(5px);
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent);
+    border-radius: 50%;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .header p {
+      text-align: left;
+    }
+    .expertise-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .section-title {
+      font-size: 3rem;
+    }
+  }
+</style>
