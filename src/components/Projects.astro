@@ -4,6 +4,9 @@ import { getCollection } from 'astro:content';
 const projects = await getCollection('projects');
 // Sort by date descending
 const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+// Extract unique tags
+const allTags = [...new Set(projects.flatMap(p => p.data.tags))].sort();
 ---
 
 <section id="projects" class="reveal" style="animation-delay: 0.4s;">
@@ -11,12 +14,20 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
     <h2 class="section-title">02 /<br/>Projects</h2>
     <p>A selection of recent works that push boundaries.</p>
   </div>
+
+  <div class="filter-bar reveal" style="animation-delay: 0.5s;">
+    <button class="filter-btn active" data-filter="all">All</button>
+    {allTags.map(tag => (
+      <button class="filter-btn" data-filter={tag}>{tag}</button>
+    ))}
+  </div>
   
   <div class="editorial-grid">
     {sortedProjects.map((project, index) => (
       <article 
         class={`project-card ${project.data.featured ? 'large' : ''} reveal`} 
-        style={`animation-delay: ${0.5 + index * 0.1}s;`}
+        style={`animation-delay: ${0.6 + index * 0.1}s;`}
+        data-tags={JSON.stringify(project.data.tags)}
       >
         <div class="number">{String(index + 1).padStart(2, '0')}</div>
         <div class="content">
@@ -28,6 +39,49 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
     ))}
   </div>
 </section>
+
+<script>
+  function setupFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        // Update active state
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter cards
+        projectCards.forEach(card => {
+          const tagsAttribute = card.getAttribute('data-tags');
+          const tags = tagsAttribute ? JSON.parse(tagsAttribute) : [];
+          
+          if (filter === 'all' || tags.includes(filter)) {
+            (card as HTMLElement).style.display = 'flex';
+            setTimeout(() => { 
+              (card as HTMLElement).style.opacity = '1';
+              (card as HTMLElement).style.transform = 'translateY(0)';
+            }, 10);
+          } else {
+            (card as HTMLElement).style.opacity = '0';
+            (card as HTMLElement).style.transform = 'translateY(20px)';
+            setTimeout(() => { 
+              (card as HTMLElement).style.display = 'none'; 
+            }, 400);
+          }
+        });
+      });
+    });
+  }
+
+  // Initial setup
+  setupFilters();
+
+  // Re-run after view transitions
+  document.addEventListener('astro:after-swap', setupFilters);
+</script>
 
 <style>
   #projects {
@@ -55,6 +109,33 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
     text-align: right;
   }
 
+  .filter-bar {
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 1.5rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
   .editorial-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -70,7 +151,7 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
     flex-direction: column;
     justify-content: flex-end;
     min-height: 400px;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, opacity 0.4s ease;
     opacity: 0;
   }
 
