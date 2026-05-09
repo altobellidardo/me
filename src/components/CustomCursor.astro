@@ -1,0 +1,117 @@
+---
+---
+
+<div id="cursor"></div>
+<div id="cursor-follower"></div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('cursor-follower');
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let followerX = 0;
+  let followerY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    if (cursor) {
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    }
+  });
+
+  function animate() {
+    // Smooth follower movement
+    followerX += (mouseX - followerX) * 0.15;
+    followerY += (mouseY - followerY) * 0.15;
+    
+    if (follower) {
+      follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+    }
+    
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Hover effects
+  const links = document.querySelectorAll('a, button, .project-card');
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      follower?.classList.add('hover');
+    });
+    link.addEventListener('mouseleave', () => {
+      follower?.classList.remove('hover');
+    });
+  });
+
+  // Re-initialize on page transition (Astro ClientRouter)
+  document.addEventListener('astro:after-swap', () => {
+    const newLinks = document.querySelectorAll('a, button, .project-card');
+    newLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        follower?.classList.add('hover');
+      });
+      link.addEventListener('mouseleave', () => {
+        follower?.classList.remove('hover');
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  /* Hide default cursor on desktop */
+  @media (min-width: 1024px) {
+    html, body {
+      cursor: none;
+    }
+    
+    a, button, .project-card {
+      cursor: none;
+    }
+
+    #cursor {
+      position: fixed;
+      top: -5px;
+      left: -5px;
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.05s linear;
+    }
+
+    #cursor-follower {
+      position: fixed;
+      top: -20px;
+      left: -20px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease, background-color 0.3s ease;
+    }
+
+    #cursor-follower.hover {
+      width: 60px;
+      height: 60px;
+      top: -30px;
+      left: -30px;
+      background-color: var(--accent-soft);
+      border-width: 2px;
+    }
+  }
+
+  /* Keep default cursor on mobile/tablet */
+  @media (max-width: 1023px) {
+    #cursor, #cursor-follower {
+      display: none;
+    }
+  }
+</style>

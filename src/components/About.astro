@@ -1,0 +1,67 @@
+---
+---
+
+<section id="about" class="reveal" style="animation-delay: 0.2s;">
+  <div class="editorial-grid">
+    <h2 class="section-title">01 /<br/>About</h2>
+    <div class="content">
+      <p class="lead">
+        I am a passionate software engineer with over 15 years of experience in the industry. 
+        I specialize in clean architecture, performance optimization, and building scalable 
+        web applications that provide exceptional user experiences.
+      </p>
+      <div class="philosophy">
+        <h3>Philosophy</h3>
+        <p>
+          My philosophy centers on understanding the "why" behind every line of code and 
+          striving for excellence in every project I undertake.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #about {
+    margin: 8rem 0;
+  }
+
+  .editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+
+  .section-title {
+    font-size: 4rem;
+    color: var(--accent);
+  }
+
+  .content .lead {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: 500;
+    margin-top: 0;
+  }
+
+  .philosophy {
+    margin-top: 3rem;
+    border-left: 2px solid var(--accent);
+    padding-left: 2rem;
+  }
+
+  .philosophy h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .editorial-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .section-title {
+      font-size: 3rem;
+    }
+  }
+</style>
