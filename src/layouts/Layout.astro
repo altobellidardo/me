@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import CustomCursor from '../components/CustomCursor.astro';
 
 interface Props {
   title?: string;
@@ -38,8 +37,6 @@ const {
     <ClientRouter />
 	</head>
 	<body>
-    <CustomCursor />
-    
     <!-- Noise SVG Filter -->
     <svg class="noise-filter">
       <filter id="noise">

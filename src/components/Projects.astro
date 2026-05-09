@@ -2,21 +2,20 @@
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
-// Sort by date descending
 const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
-<section id="projects" class="reveal" style="animation-delay: 0.4s;">
+<section id="projects" class="reveal">
   <div class="header">
     <h2 class="section-title">02 /<br/>Projects</h2>
     <p>A selection of recent works that push boundaries.</p>
   </div>
   
   <div class="editorial-grid">
-    {sortedProjects.map((project, index) => (
+    {sortedProjects.length > 0 ? sortedProjects.map((project, index) => (
       <article 
         class={`project-card ${project.data.featured ? 'large' : ''} reveal`} 
-        style={`animation-delay: ${0.5 + index * 0.1}s;`}
+        style={`transition-delay: ${0.2 + index * 0.1}s;`}
       >
         <div class="number">{String(index + 1).padStart(2, '0')}</div>
         <div class="content">
@@ -25,7 +24,7 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
           <a href={`/projects/${project.id}`} class="btn">View Details</a>
         </div>
       </article>
-    ))}
+    )) : <p>No projects found in the collection.</p>}
   </div>
 </section>
 
