@@ -115,10 +115,12 @@ const { Content } = await render(entry);
   }
 
   .project-title {
-    font-size: clamp(4rem, 15vw, 12rem);
+    font-size: clamp(2.5rem, 10vw, 10rem);
     line-height: 0.85;
     margin-bottom: 4rem;
     letter-spacing: -0.04em;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .project-meta {
@@ -277,10 +279,6 @@ const { Content } = await render(entry);
     }
     .back-link {
       margin-bottom: 2rem;
-    }
-    .project-title {
-      font-size: clamp(3rem, 12vw, 5rem);
-      margin-bottom: 2.5rem;
     }
     .project-meta {
       gap: 2rem;
