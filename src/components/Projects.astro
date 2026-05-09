@@ -22,7 +22,7 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
         <div class="content">
           <h3>{project.data.title}</h3>
           <p>{project.data.description}</p>
-          <a href={`/projects/${project.slug}`} class="btn">View Details</a>
+          <a href={`/projects/${project.id}`} class="btn">View Details</a>
         </div>
       </article>
     ))}
