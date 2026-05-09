@@ -25,7 +25,7 @@ const { Content } = await render(entry);
     <header class="project-header reveal">
       <div class="header-container">
         <a href="/" class="back-link">
-          <span class="arrow">←</span> Index
+          <span class="arrow">←</span> Home
         </a>
         
         <h1 class="project-title" transition:name={`title-${entry.id}`}>
@@ -269,17 +269,43 @@ const { Content } = await render(entry);
       grid-template-columns: 1fr;
       gap: 4rem;
     }
-    .project-title {
-      font-size: 5rem;
-    }
   }
 
   @media (max-width: 768px) {
+    .header-container {
+      padding: 12vh 1.5rem 4vh 1.5rem;
+    }
+    .back-link {
+      margin-bottom: 2rem;
+    }
+    .project-title {
+      font-size: clamp(3rem, 12vw, 5rem);
+      margin-bottom: 2.5rem;
+    }
     .project-meta {
       gap: 2rem;
+      padding-top: 2rem;
     }
     .featured-image-container {
-      height: 50vh;
+      height: 40vh;
+      margin-bottom: 4rem;
+    }
+    .container {
+      padding: 0 1.5rem;
+    }
+    .sidebar .summary {
+      font-size: 1.25rem;
+    }
+    .project-content {
+      font-size: 1.1rem;
+    }
+    .project-content :global(h2) {
+      font-size: 2rem;
+      margin: 3rem 0 1.5rem 0;
+    }
+    .project-navigation {
+      margin-top: 6rem;
+      padding-top: 3rem;
     }
   }
 </style>

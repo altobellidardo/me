@@ -157,22 +157,48 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
   }
 
   @media (max-width: 768px) {
+    #projects {
+      margin: 4rem 0;
+    }
     .header {
       flex-direction: column;
       align-items: flex-start;
       gap: 1rem;
+      margin-bottom: 2rem;
     }
     .header p {
       text-align: left;
+      font-size: 0.9rem;
+    }
+    .section-title {
+      font-size: 2.5rem;
     }
     .editorial-grid {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .project-card {
+      padding: 2rem;
+      min-height: 350px;
     }
     .project-card.large {
       grid-column: span 1;
+      min-height: 350px;
+    }
+    .content h3 {
+      font-size: 1.8rem;
+    }
+    .content p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
     }
     .project-image {
       opacity: 0.3;
+    }
+    .number {
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 </style>

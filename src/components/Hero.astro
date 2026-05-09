@@ -110,17 +110,27 @@
 
   @media (max-width: 768px) {
     #hero {
-      padding: 10vh 0;
+      padding: 12vh 0 8vh 0;
     }
     .line {
-      line-height: 0.8;
+      font-size: clamp(3.5rem, 15vw, 6rem);
+      line-height: 0.85;
+    }
+    .outline, .accent-outline {
+      top: 0.03em;
+      left: 0.03em;
     }
     .last-name {
       padding-left: 0;
-      margin-top: 0;
+      margin-top: -0.05em;
     }
     .subline {
-      margin-top: 3rem;
+      margin-top: 2.5rem;
+      gap: 0.5rem;
+    }
+    .tag {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem;
     }
   }
 </style>
