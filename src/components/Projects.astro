@@ -12,7 +12,7 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
   </div>
   
   <div class="editorial-grid">
-    {sortedProjects.length > 0 ? sortedProjects.map((project, index) => (
+    {sortedProjects.map((project, index) => (
       <article 
         class={`project-card ${project.data.featured ? 'large' : ''} reveal`} 
         style={`transition-delay: ${0.2 + index * 0.1}s;`}
@@ -24,7 +24,7 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
           <a href={`/projects/${project.id}`} class="btn">View Details</a>
         </div>
       </article>
-    )) : <p>No projects found in the collection.</p>}
+    ))}
   </div>
 </section>
 
