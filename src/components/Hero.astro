@@ -3,9 +3,13 @@
 
 <section id="hero" class="reveal">
   <div class="main-title">
-    <div class="line">DARDO</div>
-    <div class="line vertical-accent">
-      <span class="text">ALTOBELLI</span>
+    <div class="line first-name">
+      <span class="solid">DARDO</span>
+      <span class="outline">DARDO</span>
+    </div>
+    <div class="line last-name">
+      <span class="accent">ALTOBELLI</span>
+      <span class="accent-outline">ALTOBELLI</span>
     </div>
   </div>
   <div class="subline">
@@ -17,69 +21,106 @@
 
 <style>
   #hero {
-    padding: 10vh 0;
+    padding: 15vh 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow: visible;
   }
 
   .main-title {
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .line {
-    font-size: clamp(4rem, 15vw, 12rem);
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    line-height: 0.85;
+    font-size: clamp(5rem, 18vw, 15rem);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 0.75;
+    position: relative;
+    text-transform: uppercase;
   }
 
-  .vertical-accent {
-    position: relative;
-    margin-top: 0.5rem;
-    padding-left: 2rem;
+  .first-name {
+    z-index: 2;
+  }
+
+  .last-name {
+    margin-top: -0.1em; /* Heavy overlap */
+    z-index: 1;
+    padding-left: 0.1em;
+  }
+
+  .solid {
+    color: var(--text);
+  }
+
+  .outline {
+    position: absolute;
+    top: 0.05em;
+    left: 0.05em;
+    -webkit-text-stroke: 1px var(--accent);
+    color: transparent;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .accent {
     color: var(--accent);
   }
 
-  .vertical-accent::before {
-    content: '';
+  .accent-outline {
     position: absolute;
-    left: 0;
-    top: 10%;
-    bottom: 10%;
-    width: 0.5rem;
-    background: var(--text);
+    top: 0.05em;
+    left: 0.05em;
+    -webkit-text-stroke: 1px var(--text);
+    color: transparent;
+    z-index: -1;
+    opacity: 0.3;
   }
 
   .subline {
-    margin-top: 4rem;
+    margin-top: 5rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    z-index: 3;
   }
 
   .tag {
-    background: var(--accent-soft);
+    background: var(--bg);
+    border: 1px solid var(--accent);
     color: var(--accent);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.2rem;
     font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: 700;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
+    border-radius: 2px;
+    letter-spacing: 0.15em;
+    transition: all 0.3s ease;
+  }
+
+  .tag:hover {
+    background: var(--accent);
+    color: var(--bg);
   }
 
   @media (max-width: 768px) {
     #hero {
-      padding: 5vh 0;
+      padding: 10vh 0;
     }
-    .vertical-accent {
-      padding-left: 1.5rem;
+    .line {
+      line-height: 0.8;
     }
-    .vertical-accent::before {
-      width: 0.3rem;
+    .last-name {
+      padding-left: 0;
+      margin-top: 0;
+    }
+    .subline {
+      margin-top: 3rem;
     }
   }
 </style>
