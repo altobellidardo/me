@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
@@ -24,7 +24,7 @@ const { Content } = await render(entry);
   <main id="main-content" class="project-page">
     <header class="project-header reveal">
       <div class="header-container">
-        <a href="/" class="back-link">
+        <a href="/" class="back-link" aria-label="Back to home">
           <span class="arrow">←</span> Home
         </a>
         
@@ -72,7 +72,7 @@ const { Content } = await render(entry);
         
         <footer class="project-navigation">
           <div class="nav-label">Next Project</div>
-          <a href={`/projects/${nextEntry.id}`} class="next-link">
+          <a href={`/projects/${nextEntry.id}`} class="next-link" aria-label={`View project details for: ${nextEntry.data.title}`}>
             <span class="next-title">{nextEntry.data.title}</span>
             <span class="next-arrow">→</span>
           </a>
