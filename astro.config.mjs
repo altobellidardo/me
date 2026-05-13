@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   // Replace with your final domain
-  site: 'https://dardoaltobelli.com',
+  site: 'https://altobellidardo.dev',
 
   compressHTML: true,
 

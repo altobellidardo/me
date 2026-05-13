@@ -306,3 +306,19 @@ const { Content } = await render(entry);
     }
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const projectContent = document.querySelector('.project-content');
+    if (projectContent) {
+      const links = projectContent.querySelectorAll('a');
+      links.forEach(link => {
+        // Solo links que van a otros dominios
+        if (link.hostname !== window.location.hostname && link.href.startsWith('http')) {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+    }
+  });
+</script>
