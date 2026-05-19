@@ -20,8 +20,6 @@ The website will have the following features:
 - List of all rankings
 - List of all statistics
 
-## Link
-Check here: [https://fixture-tan.vercel.app](https://fixture-tan.vercel.app)
-
-## Repository
-Check here: [https://github.com/altobellidardo/fixture](https://github.com/altobellidardo/fixture)
+## Links
+- **Live Demo**: [https://fixture-tan.vercel.app](https://fixture-tan.vercel.app)
+- **Repository**: [https://github.com/altobellidardo/fixture](https://github.com/altobellidardo/fixture)
