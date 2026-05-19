@@ -4,7 +4,7 @@ Este es mi portfolio personal, diseñado con una estética técnica/brutalista q
 
 ## 🚀 Stack Tecnológico
 
-- **Framework:** [Astro 5.0](https://astro.build/) (Content Layer API)
+- **Framework:** [Astro 6.3](https://astro.build/) (Content Layer API)
 - **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
 - **Estilos:** Vanilla CSS con variables modernas y filtros SVG.
 - **Tipografía:** Syne & Bricolage Grotesque.
