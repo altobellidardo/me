@@ -22,7 +22,14 @@ const sortedProjects = projects.sort((a, b) => b.data.pubDate.getTime() - a.data
         
         {project.data.image && (
           <div class="project-image">
-            <Image src={project.data.image} alt={project.data.title} width={800} height={450} format="webp" />
+            <Image 
+              src={project.data.image} 
+              alt={project.data.title} 
+              width={800} 
+              height={450} 
+              format="webp" 
+              transition:name={`img-${project.id}`}
+            />
           </div>
         )}
 

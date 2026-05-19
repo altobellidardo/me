@@ -200,9 +200,6 @@ const {
     revealElements.forEach(el => observer.observe(el));
   }
 
-  // Run on initial load
-  setupScrollReveal();
-
-  // Run after view transitions
-  document.addEventListener('astro:after-swap', setupScrollReveal);
+  // Run on every navigation (including initial load)
+  document.addEventListener('astro:page-load', setupScrollReveal);
 </script>
