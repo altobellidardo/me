@@ -1,0 +1,28 @@
+---
+title: "NOMBRE DEL PROYECTO"
+description: "Una descripción breve y concisa de lo que trata el proyecto y su propósito principal."
+pubDate: 2026-05-16
+image: "./path/to/image.png" # Opcional
+tags: ["Tecnología 1", "Tecnología 2", "Frontend"]
+featured: false
+---
+
+## Introducción
+Escribe aquí una breve introducción sobre el proyecto, el contexto en el que se desarrolló y los problemas que resuelve.
+
+## Características Principales (Features)
+Detalla las funcionalidades más importantes:
+- **Funcionalidad 1**: Descripción.
+- **Funcionalidad 2**: Descripción.
+- **Funcionalidad 3**: Descripción.
+
+## Tecnologías Utilizadas
+Menciona las herramientas y librerías clave:
+- Framework (ej. Astro, Next.js)
+- Estilado (ej. Tailwind, CSS Modules)
+- Backend/API (ej. Node.js, Python)
+
+## Enlaces (Links)
+Si el proyecto está desplegado o tiene un repositorio público:
+- **Demo en vivo**: [Ver Proyecto](https://link-a-tu-demo.com)
+- **Repositorio**: [GitHub](https://github.com/tu-usuario/tu-repo)
