@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="404: System Error | Dardo Altobelli" description="The requested path does not exist in the current architecture.">
   <main class="error-page">
-    <section class="reveal">
+    <section class="animate-mount">
       <div class="error-code">404</div>
       <h1 class="error-title">PATH_NOT_FOUND</h1>
       <p class="error-message">
@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <div class="decoration reveal" style="animation-delay: 0.2s;">
+    <div class="decoration animate-mount" style="transition-delay: 0.2s;">
       <div class="line">SYSTEM_HALT</div>
       <div class="line outlined">SEGMENTATION_FAULT</div>
       <div class="line">REBOOT_REQUIRED</div>
